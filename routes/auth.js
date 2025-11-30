@@ -13,8 +13,12 @@ router.post('/login', async (req, res) => {
     if (!fighter || !(await bcrypt.compare(password, fighter.password))) {
       return res.status(401).json({ error: 'Credenciais inválidas' });
     }
-    const token = jwt.sign({ id: fighter.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token, fighter: { id: fighter.id, name: fighter.name, email: fighter.email } });
+    const token = jwt.sign(
+      { id: fighter.iduser, isAdmin: fighter.isAdmin },  
+      process.env.JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
+    res.json({ token, fighter: { id: fighter.iduser, name: fighter.name, email: fighter.email, isAdmin: fighter.isAdmin } });
   } catch (error) {
     res.status(500).json({ error: 'Erro ao fazer login' });
   }

@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `oasis`.`user` (
   `gender` VARCHAR(10) NOT NULL,
   `belt` VARCHAR(50) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
+  `isAdmin` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`iduser`)
 )ENGINE = InnoDB;
 

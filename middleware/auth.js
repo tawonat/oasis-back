@@ -23,3 +23,16 @@ function verifyToken(req, res, next) {
 }
 
 module.exports = { verifyToken };
+
+const { verifyToken } = require('./auth');
+
+function verifyAdmin(req, res, next) {
+  verifyToken(req, res, () => {
+    if (!req.user.isAdmin) {
+      return res.status(403).json({ error: 'Acesso negado. Apenas admins.' });
+    }
+    next();
+  });
+}
+
+module.exports = { verifyAdmin };
